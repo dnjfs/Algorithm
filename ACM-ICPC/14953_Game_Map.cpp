@@ -3,49 +3,28 @@
 
 #include "iostream"
 #include "vector"
-#include "queue"
+#include "algorithm"
 
 using namespace std;
 
-int dg[100000], maxLength = 1, depth[100000];
+int nb[100000], order[100000], dp[100000];
 /*
-dg[]: 정점의 차수
-maxLength: 정답
-depth[]: 정점까지의 깊이
+nb[]: 정점(도시)의 차수(이웃수)
+opder[]: 정점의 차수가 작은 순으로 정점의 번호가 정렬된 배열
+dp[]: 해당 정점까지 정복하는 최대 길이
 */
-void bfs(vector<vector<int>> v, int s) //너비우선탐색
-{
-	for(int i = 0; i < v.size(); i++) //깊이 초기화
-		depth[i] = 0;
-	queue<int> q;
-	q.push(s);
-	depth[s] = 1;
-
-	while(!q.empty())
-	{
-		int w = q.front();
-		q.pop();
-		for(int i = 0; i < v[w].size(); i++)
-		{
-			int temp = v[w][i];
-			if(dg[w] < dg[temp]) //차수가 더 높은 경우 이동
-			{
-				q.push(temp);
-				depth[temp] = depth[w] + 1;
-				if(depth[temp] > maxLength)
-					maxLength = depth[temp];
-			}
-		}
-	}
-}
-
 int main()
 {
 	int n, m;
+	/*
+	n: 정점의 수
+	m: 간선의 수
+	ans: 가장 긴 경로의 길이
+	*/
 	cin >>n >>m;
-	vector<vector<int>> v(n);
+	vector<vector<int>> v(n); //그래프
 
-	for(int k = 0; k < m; k++)
+	for(int k = 0; k < m; k++) //그래프 연결
 	{
 		int i, j;
 		cin >>i >>j;
@@ -55,8 +34,25 @@ int main()
 		dg[j]++;
 	}
 
-	for (int i = 0; i < n; i++) //모든 정점에 대하여 bfs를 실행해 가장 긴 경로 찾기
-		bfs(v, i);
+	for(int i = 0; i < n; i++)
+	{
+		order[i] = i;
+		dp[i] = 1;
+	}
+	sort(order, order+n, [](int a, int b)
+	{
+		return nb[a] < nb[b];
+	}); //nb[]을 기준으로 order[]을 정렬시키도록 람다 함수(Lambda Expression) 정의
 
-	cout <<maxLength;
+	for(int i = 0; i < n; i++)
+	{
+		int t = order[i];
+		for(int p : v[t]) //v[t]의 첫번째 원소부터 마지막 원소까지 탐색하는 범위 기반 for문(range based for loop)
+			if(nb[t] < nb[p]) //t보다 p의 이웃이 더 많은 경우
+				dp[p] = max(dp[p], dp[t]+1); //t에서 p로 가야하므로 +1
+	}
+
+	for(int i = 0; i < n; i++)
+		ans = max(ans, dp[i]);
+	cout <<ans;
 }
