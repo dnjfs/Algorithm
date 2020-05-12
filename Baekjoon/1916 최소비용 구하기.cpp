@@ -2,40 +2,38 @@
 
 #include "iostream"
 #include "vector"
-#include "queue"
+#include "algorithm"
 
 using namespace std;
 
 #define INF 2100000000
-int Dijkstra(vector<vector<pair<int, int>>> g, int A, int B) //다익스트라
+int Dijkstra(vector<vector<pair<int, int>>> g, int A, int B, int N) //다익스트라
 {
-	vector<int> w(1001, INF); //출발점부터 i번째 도시까지 경로의 비용
-	vector<bool> d(1001, false); //출발점부터 i번째 도시까지 경로의 최소비용를 찾음
-	queue<int> q;
-	q.push(A);
+	vector<int> w(N, INF); //출발점부터 i번째 도시까지 경로의 비용
+	vector<bool> d(N, false); //출발점부터 i번째 도시까지 경로의 최소비용를 찾음
+	
+	int v; //현재 도시
 	w[A] = 0; //출발 위치는 거리가 0
-
 	while(true)
 	{
-		int v = q.front();
-		q.pop();
-		for(auto t: g[v]) //정점 v와 인접한 정점들의 경로 업데이트
-		{
-			int u = t.first;
-			w[u] = min(w[u], w[v] + t.second); //현재 경로의 비용과 v를 거쳐 가는 경로의 비용 중 작은 값을 저장
-		}
-
-		int min = INF, index = 0;
-		for(int i = 1; i < g.size(); i++) //아직 최소비용을 찾지 못한 경로 중 최소값을 찾음
+		int min = INF, idx = 0;
+		for(int i = 1; i < N; i++) //아직 최소비용을 찾지 못한 경로 중 최소값을 찾음
 			if(w[i] < min && !d[i])
 			{
 				min = w[i];
-				index = i;
+				idx = i;
 			}
-		if(index == 0) //모든 경로의 최소비용을 찾음
+		if(idx == 0) //모든 경로의 최소비용을 찾음
 			break;
-		d[index] = true;
-		q.push(index);
+		d[idx] = true; //출발점에서 idx까지의 최소비용을 찾음
+		v = idx; //다음으로 검사할 정점
+		
+		for(auto t: g[v]) //정점 v와 인접한 정점들의 경로 업데이트
+		{
+			int u = t.first;
+			if(!d[u])
+				w[u] = min(w[u], w[v] + t.second); //현재 경로의 비용과 v를 거쳐 가는 경로의 비용 중 작은 값을 저장
+		}
 	}
 
 	return w[B]; //A부터 B까지 경로의 최소비용 반환
@@ -56,7 +54,7 @@ int main()
 	int A, B; //출발점, 도착점
 	cin >>A >>B;
 
-	cout <<Dijkstra(g, A, B);
+	cout <<Dijkstra(g, A, B, N+1);
 }
 
 
