@@ -1,4 +1,4 @@
-﻿//백준 1916
+//백준 1916
 
 #include "iostream"
 #include "vector"
@@ -9,30 +9,27 @@ using namespace std;
 #define INF 2100000000
 int Dijkstra(vector<vector<pair<int, int>>> g, int A, int B, int N) //다익스트라
 {
-	vector<int> w(N, INF); //출발점부터 i번째 도시까지 경로의 비용
-	vector<bool> d(N, false); //출발점부터 i번째 도시까지 경로의 최소비용를 찾음
+	vector<int> w(N, INF); //출발점부터 i번째 도시까지 경로의 비용(distance)
+	vector<bool> d(N, false); //출발점부터 i번째 도시까지 경로의 최소비용를 찾음(visited)
 	
-	int v; //현재 도시
+	int v = 1; //현재 도시, while문 진입을 위해 1(true)로 초기화
 	w[A] = 0; //출발 위치는 거리가 0
-	while(true)
+	while(v) //더 이상 찾을 경로가 없을 때까지 반복(모든 정점의 경로를 찾음)
 	{
-		int min = INF, idx = 0;
+		int min = INF;
+		v = 0;
 		for(int i = 1; i < N; i++) //아직 최소비용을 찾지 못한 경로 중 최소값을 찾음
 			if(w[i] < min && !d[i])
 			{
 				min = w[i];
-				idx = i;
+				v = i;
 			}
-		if(idx == 0) //모든 경로의 최소비용을 찾음
-			break;
-		d[idx] = true; //출발점에서 idx까지의 최소비용을 찾음
-		v = idx; //다음으로 검사할 정점
+		d[v] = true; //출발점에서 idx까지의 최소비용을 찾음
 		
 		for(auto t: g[v]) //정점 v와 인접한 정점들의 경로 업데이트
 		{
 			int u = t.first;
-			if(!d[u])
-				w[u] = min(w[u], w[v] + t.second); //현재 경로의 비용과 v를 거쳐 가는 경로의 비용 중 작은 값을 저장
+			w[u] = min(w[u], w[v] + t.second); //현재 경로의 비용과 v를 거쳐 가는 경로의 비용 중 작은 값을 저장
 		}
 	}
 
