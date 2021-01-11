@@ -1,42 +1,42 @@
-//¹éÁØ 1991 Æ®¸® ¼øÈ¸
+//ë°±ì¤€ 1991 íŠ¸ë¦¬ ìˆœíšŒ
 
 #include "iostream"
 #include "vector"
 
-//¸ÅÅ©·Î ¼±¾ğ (°¡µ¶¼ºÀ» À§ÇØ \ ±âÈ£·Î °³Çà)
+//ë§¤í¬ë¡œ ì •ì˜ (ê°€ë…ì„±ì„ ìœ„í•´ \ ê¸°í˜¸ë¡œ ê°œí–‰)
 #define LT(func)\
 	if(v[t][0] != '.')\
-		func(v, v[t][0]-A); //¿ŞÂÊ ÀÚ½Ä ³ëµå·Î Å½»ö
+		func(v, v[t][0]-A); //ì™¼ìª½ ìì‹ ë…¸ë“œë¡œ íƒìƒ‰
 #define RT(func)\
 	if(v[t][1] != '.')\
-		func(v, v[t][1]-A); //¿À¸¥ÂÊ ÀÚ½Ä ³ëµå·Î Å½»ö
-#define PRINT cout <<(char)(A+t); //Ãâ·Â
+		func(v, v[t][1]-A); //ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë¡œ íƒìƒ‰
+#define PRINT cout <<(char)(A+t); //ì¶œë ¥
 
 using namespace std;
 
-const int A = 'A'; //'A'¸¦ Á¤¼öÇü »ó¼ö·Î ¼±¾ğ
-void preorder_traversal(vector<vector<char>> v, int t) //ÀüÀ§ ¼øÈ¸
+const int A = 'A'; //'A'ë¥¼ ì •ìˆ˜í˜• ìƒìˆ˜ë¡œ ì„ ì–¸
+void preorder_traversal(vector<vector<char>> v, int t) //ì „ìœ„ ìˆœíšŒ
 {
-	PRINT	LT(preorder_traversal)	RT(preorder_traversal) //·çÆ®, ¿ŞÂÊ, ¿À¸¥ÂÊ ¼øÀ¸·Î ¹æ¹®
+	PRINT	LT(preorder_traversal)	RT(preorder_traversal) //ë£¨íŠ¸, ì™¼ìª½, ì˜¤ë¥¸ìª½ ìˆœìœ¼ë¡œ ë°©ë¬¸
 }
-void inorder_traversal(vector<vector<char>> v, int t) //ÁßÀ§ ¼øÈ¸
+void inorder_traversal(vector<vector<char>> v, int t) //ì¤‘ìœ„ ìˆœíšŒ
 {
-	LT(inorder_traversal)	PRINT	RT(inorder_traversal) //¿ŞÂÊ, ·çÆ®, ¿À¸¥ÂÊ ¼øÀ¸·Î ¹æ¹®
+	LT(inorder_traversal)	PRINT	RT(inorder_traversal) //ì™¼ìª½, ë£¨íŠ¸, ì˜¤ë¥¸ìª½ ìˆœìœ¼ë¡œ ë°©ë¬¸
 }
-void postorder_traversal(vector<vector<char>> v, int t) //ÈÄÀ§ ¼øÈ¸
+void postorder_traversal(vector<vector<char>> v, int t) //í›„ìœ„ ìˆœíšŒ
 {
-	LT(postorder_traversal)	RT(postorder_traversal)	PRINT //¿ŞÂÊ, ¿À¸¥ÂÊ, ·çÆ® ¼øÀ¸·Î ¹æ¹®
+	LT(postorder_traversal)	RT(postorder_traversal)	PRINT //ì™¼ìª½, ì˜¤ë¥¸ìª½, ë£¨íŠ¸ ìˆœìœ¼ë¡œ ë°©ë¬¸
 }
 
 int main()
 {
-	int N; //³ëµåÀÇ °³¼ö
-	vector<vector<char>> tree(26); //ÀÌÁø Æ®¸® (³ëµåÀÇ °³¼ö°¡ ÃÖ´ë 26°³)
+	int N; //ë…¸ë“œì˜ ê°œìˆ˜
+	vector<vector<char>> tree(26); //ì´ì§„ íŠ¸ë¦¬ (ë…¸ë“œì˜ ê°œìˆ˜ê°€ ìµœëŒ€ 26ê°œ)
 	cin >>N;
 
 	for(int i = 0; i < N; i++)
 	{
-		char c1, c2, c3; //³ëµå, ¿ŞÂÊ ÀÚ½Ä, ¿À¸¥ÂÊ ÀÚ½Ä
+		char c1, c2, c3; //ë…¸ë“œ, ì™¼ìª½ ìì‹, ì˜¤ë¥¸ìª½ ìì‹
 		cin >>c1 >>c2 >>c3;
 		tree[c1-A].push_back(c2);
 		tree[c1-A].push_back(c3);
@@ -52,7 +52,7 @@ int main()
 
 
 /*
-ÀÌÁø Æ®¸®¸¦ ÀÔ·Â¹Ş¾Æ ÀüÀ§ ¼øÈ¸, ÁßÀ§ ¼øÈ¸, ÈÄÀ§ ¼øÈ¸ÇÑ °á°ú¸¦ Ãâ·ÂÇÏ´Â ¹®Á¦ÀÔ´Ï´Ù.
-ÀÍ¼÷ÇÑ ¹®Á¦¶ó ÄÚµå¸¦ ´õ °£°áÇÏ°Ô ¸¸µé°í ½Í¾î ¸ÅÅ©·Î¸¦ ÀÌ¿ëÇØº¸¾Ò½À´Ï´Ù.
-¹İº¹µÈ ÄÚµå°¡ ³ª¿Ã ¶§ ¸ÅÅ©·Î¸¦ ÀÌ¿ëÇÏ¸é ÄÚµåµµ °£°áÇØÁö°í °¡µ¶¼ºµµ ÁÁ¾Æº¸¿© ÀÚÁÖ ÀÌ¿ëÇÒ °Í °°½À´Ï´Ù.
+ì´ì§„ íŠ¸ë¦¬ë¥¼ ì…ë ¥ë°›ì•„ ì „ìœ„ ìˆœíšŒ, ì¤‘ìœ„ ìˆœíšŒ, í›„ìœ„ ìˆœíšŒí•œ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” ë¬¸ì œì…ë‹ˆë‹¤.
+ìµìˆ™í•œ ë¬¸ì œë¼ ì½”ë“œë¥¼ ë” ê°„ê²°í•˜ê²Œ ë§Œë“¤ê³  ì‹¶ì–´ ë§¤í¬ë¡œë¥¼ ì´ìš©í•´ë³´ì•˜ìŠµë‹ˆë‹¤.
+ë°˜ë³µëœ ì½”ë“œê°€ ë‚˜ì˜¬ ë•Œ ë§¤í¬ë¡œë¥¼ ì´ìš©í•˜ë©´ ì½”ë“œë„ ê°„ê²°í•´ì§€ê³  ê°€ë…ì„±ë„ ì¢‹ì•„ë³´ì—¬ ìì£¼ ì´ìš©í•  ê²ƒ ê°™ìŠµë‹ˆë‹¤.
 */
