@@ -1,19 +1,19 @@
-//¹éÁØ 15650 N°ú M (2)
+//ë°±ì¤€ 15650 Nê³¼ M (2)
 
 #include "iostream"
 #include "algorithm"
 
 using namespace std;
 
-int num[8], sel[8]; //1ºÎÅÍ ¿À¸§Â÷¼øÀ¸·Î ´ã±ä ¹è¿­, ¼ö¿­À» ¼±ÅÃÇÏ´Â ¹è¿­
+int num[8], sel[8]; //1ë¶€í„° ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ë‹´ê¸´ ë°°ì—´, ìˆ˜ì—´ì„ ì„ íƒí•˜ëŠ” ë°°ì—´
 int main()
 {
-	int N, M; //num[] ¹è¿­¿¡ µé¾î°¥ ÃÖ´ñ°ª, ÇÑ ¹ø¿¡ ¼±ÅÃÇÒ ¼ö¿­ÀÇ Å©±â
+	int N, M; //num[] ë°°ì—´ì— ë“¤ì–´ê°ˆ ìµœëŒ“ê°’, í•œ ë²ˆì— ì„ íƒí•  ìˆ˜ì—´ì˜ í¬ê¸°
 	cin >>N >>M;
-	for(int i = 0; i < N; i++) //1~N±îÁö ¹è¿­¿¡ ÀúÀå
+	for(int i = 0; i < N; i++) //1~Nê¹Œì§€ ë°°ì—´ì— ì €ìž¥
 		num[i] = i+1;
 
-	for(int i = 0; i < M; i++) //ÇÑ ¹ø¿¡ M°³ ¼±ÅÃ, ¼ö¿­ Ãâ·ÂÀº »çÀü ¼øÀ¸·Î
+	for(int i = 0; i < M; i++) //í•œ ë²ˆì— Mê°œ ì„ íƒ, ìˆ˜ì—´ ì¶œë ¥ì€ ì‚¬ì „ ìˆœìœ¼ë¡œ
 		sel[i] = 1;
 
 	do
@@ -22,7 +22,7 @@ int main()
 			if(sel[i])
 				cout <<num[i] <<" ";
 		cout <<endl;
-	}while(next_permutation(sel, sel+N, [](int a, int b){ //¶÷´Ù Ç¥Çö½ÄÀ¸·Î ±¸ÇöÇÑ ³»¸²Â÷¼ø
+	}while(next_permutation(sel, sel+N, [](int a, int b){ //ëžŒë‹¤ í‘œí˜„ì‹ìœ¼ë¡œ êµ¬í˜„í•œ ë‚´ë¦¼ì°¨ìˆœ
 		return a > b;
 	}));
 }
@@ -31,8 +31,8 @@ int main()
 
 
 /*
-1~NÀÌ ÀúÀåµÈ ÀÚ¿¬¼ö ¹è¿­¿¡¼­ M°³¸¦ °í¸¥ ¼ö¿­À» Ãâ·ÂÇÏ´Â ¹®Á¦ÀÔ´Ï´Ù.
-STLÀÇ next_permutation() ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© °£´ÜÇÏ°Ô ±¸ÇöÇÏ¿´½À´Ï´Ù.
-next_permutation() ÇÔ¼öÀÇ ¼¼ ¹øÂ° ÀÎÀÚ¿¡ ³»¸²Â÷¼ø ÇÔ¼ö Æ÷ÀÎÅÍ¸¦ ³Ö¾îÁÖÁö ¾ÊÀ¸¸é sel[] ¹è¿­ÀÇ °ªÀÌ Á¦´ë·Î ¼øÈ¯µÇÁö ¾Ê½À´Ï´Ù.
-¶÷´Ù Ç¥Çö½Ä ´ë½Å greater<>()¶ó´Â ÇÔ¼ö °´Ã¼¸¦ ³Ö¾îÁàµµ µË´Ï´Ù.
+1~Nì´ ì €ìž¥ëœ ìžì—°ìˆ˜ ë°°ì—´ì—ì„œ Mê°œë¥¼ ê³ ë¥¸ ìˆ˜ì—´ì„ ì‚¬ì „ ìˆœìœ¼ë¡œ ì¶œë ¥í•˜ëŠ” ë¬¸ì œìž…ë‹ˆë‹¤.
+STLì˜ next_permutation() í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ê°„ë‹¨í•˜ê²Œ êµ¬í˜„í•˜ì˜€ìŠµë‹ˆë‹¤.
+next_permutation() í•¨ìˆ˜ì˜ ì„¸ ë²ˆì§¸ ì¸ìžì— ë‚´ë¦¼ì°¨ìˆœ í•¨ìˆ˜ í¬ì¸í„°ë¥¼ ë„£ì–´ì£¼ì§€ ì•Šìœ¼ë©´ sel[] ë°°ì—´ì˜ ê°’ì´ ì œëŒ€ë¡œ ìˆœí™˜ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+ëžŒë‹¤ í‘œí˜„ì‹ ëŒ€ì‹  greater<>()ë¼ëŠ” í•¨ìˆ˜ ê°ì²´ë¥¼ ë„£ì–´ì¤˜ë„ ë©ë‹ˆë‹¤.
 */
