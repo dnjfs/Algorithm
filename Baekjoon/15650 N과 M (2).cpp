@@ -1,4 +1,5 @@
 //백준 15650 N과 M (2)
+//solved.ac CLASS 4
 
 #include "iostream"
 #include "algorithm"
